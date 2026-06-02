@@ -47,6 +47,8 @@ supersonic outlet uses a zero-gradient extrapolation — the same approach as ze
 in OpenFOAM. Crucially, the sonic condition M = 1 at the throat is not imposed but emerges 
 naturally from the solution, confirming the physical consistency of the solver.
 
+![Validation](/results/validation.png)
+
 ## Build & Run
 
 ```bash
