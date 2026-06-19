@@ -32,13 +32,13 @@ $$\frac{\partial \mathbf{U}}{\partial t} + \frac{\partial \mathbf{F}(\mathbf{U})
 with the conservative state vector, the physical flux,
 and the geometric source term
 
-$$\mathbf{U} = \begin{pmatrix}\rho \\ \rho u \\ E\end{pmatrix},\quad
-\mathbf{F} = \begin{pmatrix}\rho u \\ \rho u^2 + p \\ u(E+p)\end{pmatrix},\quad
-\mathbf{S} = \begin{pmatrix}0 \\ \dfrac{p}{A}\dfrac{dA}{dx} \\ 0\end{pmatrix},$$
+$$\mathbf{U} = \begin{pmatrix}\rho ,\\ \rho u ,\\ E\end{pmatrix},\quad
+\mathbf{F} = \begin{pmatrix}\rho u ,\\ \rho u^2 + p ,\\ u(E+p)\end{pmatrix},\quad
+\mathbf{S} = \begin{pmatrix}0 ,\\ \dfrac{p}{A}\dfrac{dA}{dx} ,\\ 0\end{pmatrix},$$
 
 closed by the ideal-gas equation of state
 
-$$p = (\gamma - 1)\!\left(E - \tfrac{1}{2}\rho u^2\right),$$
+$$p = (\gamma - 1)\left(E - \tfrac{1}{2}\rho u^2\right),$$
 
 where $A(x)$ is the local nozzle cross-sectional area. The convective
 flux is handled by the chosen Riemann solver; the area source term is
@@ -49,7 +49,7 @@ in the time update step.
 
 The test case follows the Anderson (1995) convergent–divergent nozzle:
 
-$$A(x) = 1 + 2.2\,(x - 1.5)^2, \qquad x \in [0,\, 3].$$
+$$A(x) = 1 + 2.2(x - 1.5)^2, \qquad x \in [0,\, 3].$$
 
 The throat is located at $x = 1.5$, where $A^* = 1$.
 
@@ -70,7 +70,7 @@ a fully supersonic diverging section:
 
 $$\frac{A}{A^*} = \frac{1}{M}
 \left[\frac{2}{\gamma+1}
-\left(1 + \frac{\gamma-1}{2}\,M^2\right)\right]^{\!\frac{\gamma+1}{2(\gamma-1)}}.$$
+\left(1 + \frac{\gamma-1}{2}M^2\right)\right]^{\frac{\gamma+1}{2(\gamma-1)}}.$$
 
 ---
 
@@ -81,9 +81,9 @@ $$\frac{A}{A^*} = \frac{1}{M}
 **Rusanov.** The interface flux uses the single fastest wave speed
 $S_{\max}$ as a uniform dissipation coefficient:
 
-$$\mathbf{F}^{\text{Rus}}_{i+1/2} = \tfrac{1}{2}\!\left(\mathbf{F}_L + \mathbf{F}_R\right)- \tfrac{1}{2}\,S_{\max}\!\left(\mathbf{U}_R - \mathbf{U}_L\right),
+$$\mathbf{F}^{\text{Rus}}_{i+1/2} = \tfrac{1}{2}\left(\mathbf{F}_L + \mathbf{F}_R\right)- \tfrac{1}{2}S_{\max}\left(\mathbf{U}_R - \mathbf{U}_L\right),
   \qquad
-  S_{\max} = \max\!\big(|u_L|+c_L,\ |u_R|+c_R\big).$$
+  S_{\max} = \max\big(|u_L|+c_L,\ |u_R|+c_R\big).$$
 
 **HLLC.** The Riemann fan is approximated by three waves of speeds
 $S_L$, $S^*$, $S_R$ — estimates of the eigenvalues
@@ -92,8 +92,8 @@ The interface flux is selected by sampling the fan at $x/t = 0$; in
 the star regions it is built from the intermediate state via the
 Rankine–Hugoniot jump:
 
-$$\mathbf{F}^{*}_K
-= \mathbf{F}_K + S_K\!\left(\mathbf{U}^{*}_K - \mathbf{U}_K\right),
+$$\mathbf{F}^{\star}_K
+= \mathbf{F}_K + S_K\left(\mathbf{U}^{\star}_K - \mathbf{U}_K\right),
 \qquad K \in \{L,\, R\}.$$
 
 The contact-wave speed $S_*$ is obtained from momentum conservation:
