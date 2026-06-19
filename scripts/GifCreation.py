@@ -5,9 +5,15 @@ from matplotlib.animation import FuncAnimation
 import numpy as np
 
 # 1. Recherche des fichiers CSV générés par le C++
-fichiers = sorted([f for f in os.listdir('.') if f.startswith('resultat_') and f.endswith('.csv')],
-                  key=lambda x: int(x.split('_')[1].split('.')[0]))
 
+# Chemin vers results/ depuis scripts/
+DOSSIER_CSV = os.path.join(os.path.dirname(__file__), '..', 'results')
+
+fichiers = sorted(
+    [f for f in os.listdir(DOSSIER_CSV)
+     if f.startswith('resultat_') and f.endswith('.csv')],
+    key=lambda x: int(x.split('_')[1].split('.')[0])
+)
 if not fichiers:
     print("Aucun fichier resultat_X.csv trouvé!")
     exit()
@@ -20,7 +26,7 @@ fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(8, 10), sharex=True)
 def update(frame_id):
     # On récupère le fichier correspondant à l'image actuelle
     f = fichiers[frame_id]
-    data = pd.read_csv(f)
+    data = pd.read_csv(os.path.join(DOSSIER_CSV, f))
     data['mach'] = data['vitesse'] / np.sqrt(1.4 * data['pression'] / data['rho'])
     # On nettoie les axes pour redessiner proprement
     ax1.clear()
@@ -65,7 +71,7 @@ ani = FuncAnimation(fig, update, frames=len(fichiers), repeat=False)
 
 # 5. ENREGISTREMENT DU FICHIER VIDEO (GIF)
 print("Enregistrement de la vidéo en cours (cela peut prendre quelques secondes)...")
-ani.save('Laval.gif', writer='pillow', fps=240)
+ani.save(str(DOSSIER_CSV / 'Laval.gif'), writer='pillow', fps=240)
 print("🏁 Vidéo enregistrée avec succès sous le nom 'Laval.gif' !")
 
 # 6. Affichage à l'écran

@@ -1,4 +1,24 @@
+cat > .gitignore << 'EOF'
+# macOS
+.DS_Store
+**/.DS_Store
+
+# CLion
 .idea/
-.venv/
+.ai/
 cmake-build-debug/
-*.csv
+cmake-build-release/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# CSV bruts (trop nombreux, se régénèrent)
+results/resultat_*.csv
+results/Validation_HLLC/resultat_*.csv
+results/Validation_RUSANOV/resultat_*.csv
+
+# GIF (trop lourd, se régénère avec GifCreation.py)
+scripts/Laval.gif
+EOF

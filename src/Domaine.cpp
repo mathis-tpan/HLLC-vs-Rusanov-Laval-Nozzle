@@ -32,8 +32,12 @@ double Domaine::getGlobalDeltat(std::vector<Cellule> tube, double CFL, double ga
 }
 
 void Domaine::exporterInstantane(int numero_photo) {
-    // Crée un fichier nommé resultat_0.csv, resultat_1.csv, etc.
-    std::ofstream fichier("resultat_" + std::to_string(numero_photo) + ".csv");
+    // Chemin complet vers results/ depuis cmake-build-debug/ en créant un fichier nommé resultat_0.csv, resultat_1.csv, etc.
+    std::string chemin = "../results/resultat_"
+                         + std::to_string(numero_photo)
+                         + ".csv";
+
+    std::ofstream fichier(chemin);
 
     // En-tête du fichier CSV
     fichier << "x,rho,vitesse,pression\n";
@@ -112,7 +116,7 @@ void Domaine::run(double r) {
 
         // Étape 1 : La photographie des flux aux interfaces
         for (int i = 0; i <= N; i++) {
-            flux_interfaces[i] = NumericalSchemes::getRusanov(tuyere[i], tuyere[i+1], gamma);
+            flux_interfaces[i] = NumericalSchemes::getHLLC(tuyere[i], tuyere[i+1], gamma);
         }
 
         for (int i = 1 ; i <= N; i++) {
